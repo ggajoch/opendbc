@@ -157,3 +157,16 @@ def toyota_checksum(address: int, sig, d: bytearray) -> int:
   for i in range(len(d) - 1):
     s += d[i]
   return s & 0xFF
+
+def create_lta_related_command(packer):
+  values = {
+    "GAS_PEDAL": 0,
+    "STEER_ANGLE": 0,
+    "TURN_SIGNALS": 0,
+    "UNKNOWN_2": 0,
+    "LDA_SA_TOGGLE": 0,
+    "LTA_STEER_REQUEST": 0,
+    "UNKNOWN": 0,
+    "STEERING_PRESSED": 0,
+  }
+  return packer.make_can_msg("LTA_RELATED", 0, values)

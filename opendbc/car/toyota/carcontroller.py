@@ -139,6 +139,10 @@ class CarController(CarControllerBase):
                               steer_command)
       self.secoc_lka_message_counter += 1
     can_sends.append(steer_command)
+    
+    if self.frame % 20 == 0: # 5 times per second
+      lta_related_command = toyotacan.create_lta_related_command(self.packer)
+      can_sends.append(lta_related_command)
 
     # STEERING_LTA does not seem to allow more rate by sending faster, and may wind up easier
     if self.frame % 2 == 0 and self.CP.carFingerprint in TSS2_CAR:
